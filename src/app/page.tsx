@@ -72,7 +72,7 @@ export default function HomePage() {
   }, [view]);
 
   return (
-    <div className="h-screen flex justify-center bg-transparent overflow-hidden">
+    <div className="h-screen flex justify-center custom-gradient overflow-hidden">
       <div className="w-full max-w-[1250px] h-full flex flex-col lg:flex-row bg-transparent overflow-hidden mx-auto">
         {/* Left Section (Auth) */}
         <div className="w-full lg:w-[40%] xl:w-[35%] h-full bg-transparent relative z-10 overflow-hidden flex flex-col">

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -44,7 +43,7 @@ const ScallopedBadge = ({ className, color = "#5A55F2" }: { className?: string; 
   <svg viewBox="0 0 24 24" aria-label="Verified account" className={className}>
     <g>
       <path 
-        d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.28 2.52-.81 3.91c-1.31.67-2.19 1.91-2.19 3.34s.88 2.67 2.19 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.27 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z" 
+        d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.28 2.52-.81 3.91c-1.31.67-2.19 1.91-2.19 3.34s.88 2.67 2.19 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.27 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67-2.19-1.91-2.19-3.34z" 
         fill={color}
       />
       <path 
@@ -162,7 +161,7 @@ export default function FeedPage() {
   };
 
   if (isLoading) return (
-    <div className="h-screen w-full flex items-center justify-center bg-transparent relative z-50">
+    <div className="h-screen w-full flex items-center justify-center custom-gradient relative z-50">
       <span className="text-primary font-black text-6xl tracking-tighter">
         VOICE<span className="text-[#2DD0B3]">.</span>
       </span>
@@ -170,9 +169,9 @@ export default function FeedPage() {
   );
 
   return (
-    <div className="bg-background dark:bg-[#0F0F0F] text-foreground min-h-screen">
+    <div className="bg-background text-foreground min-h-screen">
       {/* Mobile Top Navigation */}
-      <div className="sm:hidden sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 flex items-center justify-between">
+      <div className="sm:hidden sticky top-0 bg-background/80 backdrop-blur-md z-50 border-b border-border dark:border-white/10 px-4 py-3 flex items-center justify-between">
         <Link href="/feed">
           <span className="text-primary font-black text-xl tracking-tighter">
             VOICE<span className="text-[#2DD0B3]">.</span>
@@ -184,7 +183,7 @@ export default function FeedPage() {
               <Menu className="w-6 h-6 text-muted-foreground" />
             </button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-72 p-0 bg-background border-r border-border dark:border-[#2F3336]">
+          <SheetContent side="left" className="w-72 p-0 bg-background border-r border-border dark:border-white/10">
             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
             <SheetDescription className="sr-only">Access your profile and navigation links</SheetDescription>
             <div className="flex flex-col h-full p-4">
@@ -204,7 +203,7 @@ export default function FeedPage() {
                 <SidebarLink icon={Bell} label="Notifications" badge href="/notifications" />
                 <SidebarLink icon={Mail} label="Messages" href="/messages" />
                 <SidebarLink icon={User} label="Profile" href="/profile" />
-                <SidebarLink icon={Settings} label="Settings" href="#" />
+                <SidebarLink icon={Settings} label="Settings" href="/settings" />
               </nav>
             </div>
           </SheetContent>
@@ -214,7 +213,7 @@ export default function FeedPage() {
       <div className="container mx-auto max-w-7xl h-screen flex">
         
         {/* Sidebar Navigation */}
-        <header className="w-20 xl:w-64 h-full flex flex-col justify-between p-2 xl:px-4 xl:py-4 sticky top-0 border-r border-border dark:border-[#2F3336] overflow-y-auto hidden sm:flex z-50">
+        <header className="w-20 xl:w-64 h-full flex flex-col justify-between p-2 xl:px-4 xl:py-4 sticky top-0 border-r border-border dark:border-white/10 overflow-y-auto hidden sm:flex z-50">
           <div className="flex flex-col items-center xl:items-start space-y-4 w-full">
             <Link href="/feed" className="p-3 mb-2 rounded-full hover:bg-primary/10 transition-colors cursor-pointer w-fit self-center xl:self-start">
               <span className="text-primary font-black text-2xl tracking-tighter">
@@ -228,10 +227,10 @@ export default function FeedPage() {
               <SidebarLink icon={Bell} label="Notifications" badge href="/notifications" />
               <SidebarLink icon={Mail} label="Messages" href="/messages" />
               <SidebarLink icon={User} label="Profile" href="/profile" />
-              <SidebarLink icon={MoreHorizontal} label="More" href="#" />
+              <SidebarLink icon={Settings} label="Settings" href="/settings" />
             </nav>
           </div>
-          <div className="flex items-center justify-center xl:justify-between p-3 rounded-full hover:bg-secondary dark:hover:bg-[#16181C] transition-colors cursor-pointer w-fit xl:w-full mt-4 mx-auto xl:mx-0">
+          <div className="flex items-center justify-center xl:justify-between p-3 rounded-full hover:bg-secondary dark:hover:bg-white/5 transition-colors cursor-pointer w-fit xl:w-full mt-4 mx-auto xl:mx-0">
             <div className="flex items-center gap-3">
               <img alt="User" className="w-10 h-10 rounded-full object-cover border border-border" src={user?.avatar} />
               <div className="hidden xl:flex flex-col leading-tight overflow-hidden">
@@ -244,12 +243,12 @@ export default function FeedPage() {
         </header>
 
         {/* Main Feed */}
-        <main id="scrollableFeed" className="flex-1 max-w-2xl w-full border-r border-border dark:border-[#2F3336] min-h-screen overflow-y-auto no-scrollbar">
-          <div className="sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336] px-4 py-3 hidden sm:block">
+        <main id="scrollableFeed" className="flex-1 max-w-2xl w-full border-r border-border dark:border-white/10 min-h-screen overflow-y-auto no-scrollbar">
+          <div className="sticky top-0 bg-background/80 backdrop-blur-md z-40 border-b border-border dark:border-white/10 px-4 py-3 hidden sm:block">
             <h2 className="text-xl font-bold">Home</h2>
           </div>
 
-          <div className="px-4 py-3 border-b border-border dark:border-[#2F3336] flex gap-4">
+          <div className="px-4 py-3 border-b border-border dark:border-white/10 flex gap-4">
             <Link href="/profile" className="flex-shrink-0">
               <img alt="Avatar" className="w-12 h-12 rounded-full object-cover hover:opacity-90 transition-opacity" src={user?.avatar} />
             </Link>
@@ -298,7 +297,7 @@ export default function FeedPage() {
                 </div>
               )}
 
-              <div className="flex justify-between items-center border-t border-border dark:border-[#2F3336] pt-3 mt-1">
+              <div className="flex justify-between items-center border-t border-border dark:border-white/10 pt-3 mt-1">
                 <div className="flex gap-1 text-primary">
                   <IconButton icon={ImageIcon} onClick={handleImageClick} title="Media" active={selectedImages.length > 0} />
                   <IconButton icon={FileJson} onClick={() => toast({ title: "GIF", description: "GIF selection coming soon!" })} title="GIF" />
@@ -350,10 +349,10 @@ export default function FeedPage() {
         <aside className="w-[350px] hidden lg:block h-screen sticky top-0 px-6 py-4 space-y-4 overflow-y-auto no-scrollbar">
           <div className="relative group">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground group-focus-within:text-primary w-4 h-4" />
-            <input className="w-full bg-secondary dark:bg-[#16181C] border-none rounded-full py-3 pl-12 pr-4 focus:ring-1 focus:ring-primary text-sm placeholder-muted-foreground outline-none" placeholder="Search VOICE" type="text" />
+            <input className="w-full bg-secondary dark:bg-white/5 border-none rounded-full py-3 pl-12 pr-4 focus:ring-1 focus:ring-primary text-sm placeholder-muted-foreground outline-none" placeholder="Search VOICE" type="text" />
           </div>
 
-          <div className="bg-secondary dark:bg-[#16181C] rounded-2xl border border-border dark:border-[#2F3336] pt-3">
+          <div className="bg-secondary dark:bg-white/5 rounded-2xl border border-border dark:border-white/10 pt-3">
             <h3 className="font-extrabold text-xl px-4 mb-3">Trending Truths</h3>
             {trendingTopics.map(topic => (
               <div key={topic.id} className="hover:bg-black/5 dark:hover:bg-white/5 px-4 py-3 cursor-pointer transition-colors">
@@ -367,7 +366,7 @@ export default function FeedPage() {
             ))}
           </div>
 
-          <div className="bg-secondary dark:bg-[#16181C] rounded-2xl border border-border dark:border-[#2F3336] pt-3">
+          <div className="bg-secondary dark:bg-white/5 rounded-2xl border border-border dark:border-white/10 pt-3">
             <h3 className="font-extrabold text-xl px-4 mb-3">Who to follow</h3>
             {followSuggestions.map(person => (
               <div key={person.id} className="flex items-center justify-between px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors">
@@ -393,7 +392,7 @@ export default function FeedPage() {
 export function SidebarLink({ icon: Icon, label, active = false, badge = false, href = "#" }: { icon: any, label: string, active?: boolean, badge?: boolean, href?: string }) {
   return (
     <Link className={cn(
-      "flex items-center gap-4 p-3 rounded-full hover:bg-secondary dark:hover:bg-[#16181C] transition-colors group w-fit xl:w-full",
+      "flex items-center gap-4 p-3 rounded-full hover:bg-secondary dark:hover:bg-white/5 transition-colors group w-fit xl:w-full",
       active ? 'font-bold' : ''
     )} href={href}>
       <div className="relative flex items-center justify-center">
@@ -418,7 +417,7 @@ function FeedItem({ post, currentUserHandle }: { post: Post, currentUserHandle?:
   const profileHref = isMe ? '/profile' : `/profile/${post.user.handle.replace('@', '')}`;
 
   return (
-    <article className="border-b border-border dark:border-[#2F3336] hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer relative group">
+    <article className="border-b border-border dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer relative group">
       <Link href={`/post/${post.id}`} className="absolute inset-0 z-0" />
       <div className="p-4 relative z-10 pointer-events-none">
         {post.isPinned && (
@@ -487,7 +486,7 @@ function FeedItem({ post, currentUserHandle }: { post: Post, currentUserHandle?:
             </div>
             <p className="mt-1 text-base leading-snug break-words">{post.content}</p>
             {post.image && (
-              <div className="mt-3 rounded-2xl overflow-hidden border border-border dark:border-[#2F3336]">
+              <div className="mt-3 rounded-2xl overflow-hidden border border-border dark:border-white/10">
                 <img alt="Post content" className="w-full h-auto max-h-[512px] object-cover" src={post.image} />
               </div>
             )}

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -49,7 +48,7 @@ const ScallopedBadge = ({ className, color = "#5A55F2" }: { className?: string; 
   <svg viewBox="0 0 24 24" aria-label="Verified account" className={className}>
     <g>
       <path 
-        d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.28 2.52-.81 3.91c-1.31.67-2.19 1.91-2.19 3.34s.88 2.67 2.19 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.27 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z" 
+        d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.28 2.52-.81 3.91c-1.31.67-2.19 1.91-2.19 3.34s.88 2.67 2.19 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.27 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91-2.19-3.34z" 
         fill={color}
       />
       <path 
@@ -136,7 +135,7 @@ export default function ProfilePage() {
   };
 
   if (isLoading) return (
-    <div className="h-screen w-full flex items-center justify-center bg-transparent relative z-50">
+    <div className="h-screen w-full flex items-center justify-center custom-gradient relative z-50">
       <span className="text-primary font-black text-6xl tracking-tighter">
         VOICE<span className="text-[#2DD0B3]">.</span>
       </span>
@@ -196,7 +195,7 @@ export default function ProfilePage() {
               <SidebarLink icon={Bell} label="Notifications" badge href="/notifications" />
               <SidebarLink icon={Mail} label="Messages" href="/messages" />
               <SidebarLink icon={User} label="Profile" active href="/profile" />
-              <SidebarLink icon={MoreHorizontal} label="More" href="#" />
+              <SidebarLink icon={Settings} label="Settings" href="#" />
             </nav>
           </div>
           <div className="flex items-center justify-center xl:justify-between p-3 rounded-full hover:bg-secondary dark:hover:bg-[#16181C] transition-colors cursor-pointer w-fit xl:w-full mt-4 mx-auto xl:mx-0">

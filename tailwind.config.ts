@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#5A55F2", 
-        "primary-hover": "#4A45D2",
+        primary: "hsl(var(--primary))", 
+        "primary-hover": "hsl(var(--primary) / 0.9)",
         "background-light": "#ffffff",
         "background-dark": "#1a1a1a",
         "surface-dark": "#1E1E1E",
@@ -22,7 +22,7 @@ export default {
         "subtext-light": "#6b7280",
         "subtext-dark": "#9ca3af",
         "border-dark": "#2d2d2d",
-        "link-purple": "#5A55F2",
+        "link-purple": "hsl(var(--primary))",
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

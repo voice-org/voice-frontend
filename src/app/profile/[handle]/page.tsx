@@ -118,7 +118,7 @@ export default function UserProfilePage({ params }: { params: Promise<{ handle: 
               <SidebarLink icon={Bell} label="Notifications" badge href="/notifications" />
               <SidebarLink icon={Mail} label="Messages" href="/messages" />
               <SidebarLink icon={UserIcon} label="Profile" href="/profile" />
-              <SidebarLink icon={MoreHorizontal} label="More" href="#" />
+              <SidebarLink icon={Settings} label="Settings" href="#" />
             </nav>
           </div>
         </header>

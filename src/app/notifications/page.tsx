@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -43,7 +42,7 @@ export default function NotificationsPage() {
   }, [router]);
 
   if (isLoading) return (
-    <div className="h-screen w-full flex items-center justify-center bg-transparent relative z-50">
+    <div className="h-screen w-full flex items-center justify-center custom-gradient relative z-50">
       <span className="text-primary font-black text-6xl tracking-tighter">
         VOICE<span className="text-[#2DD0B3]">.</span>
       </span>
@@ -91,7 +90,7 @@ export default function NotificationsPage() {
                 <SidebarLink icon={Bell} label="Notifications" active badge href="/notifications" />
                 <SidebarLink icon={Mail} label="Messages" href="/messages" />
                 <SidebarLink icon={User} label="Profile" href="/profile" />
-                <SidebarLink icon={Settings} label="Settings" href="#" />
+                <SidebarLink icon={Settings} label="Settings" href="/settings" />
               </nav>
             </div>
           </SheetContent>
@@ -115,7 +114,7 @@ export default function NotificationsPage() {
               <SidebarLink icon={Bell} label="Notifications" active badge href="/notifications" />
               <SidebarLink icon={Mail} label="Messages" href="/messages" />
               <SidebarLink icon={User} label="Profile" href="/profile" />
-              <SidebarLink icon={MoreHorizontal} label="More" href="#" />
+              <SidebarLink icon={Settings} label="Settings" href="/settings" />
             </nav>
           </div>
           <div className="flex items-center justify-center xl:justify-between p-3 rounded-full hover:bg-secondary dark:hover:bg-[#16181C] transition-colors cursor-pointer w-fit xl:w-full mt-4 mx-auto xl:mx-0">

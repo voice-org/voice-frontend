@@ -64,7 +64,7 @@ export default function FollowingPage() {
               <SidebarLink icon={Bell} label="Notifications" badge href="/notifications" />
               <SidebarLink icon={Mail} label="Messages" href="/messages" />
               <SidebarLink icon={User} label="Profile" active href="/profile" />
-              <SidebarLink icon={MoreHorizontal} label="More" href="#" />
+              <SidebarLink icon={Settings} label="Settings" href="#" />
             </nav>
           </div>
         </header>
