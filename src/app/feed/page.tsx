@@ -179,7 +179,7 @@ export default function FeedPage() {
   return (
     <div className="bg-background text-foreground min-h-screen">
       {/* Mobile Top Navigation */}
-      <div className="sm:hidden sticky top-0 bg-background/80 backdrop-blur-md z-50 border-b border-border dark:border-white/10 px-4 py-3 flex items-center justify-between">
+      <div className="sm:hidden sticky top-0 bg-background  backdrop-blur-md z-50 border-b border-border dark:border-white/10 px-4 py-3 flex items-center justify-between">
         <Link href="/feed">
           <span className="text-primary font-black text-xl tracking-tighter">
             VOICE<span className="text-[#2DD0B3]">.</span>
@@ -292,7 +292,7 @@ export default function FeedPage() {
           id="scrollableFeed"
           className="flex-1 max-w-2xl w-full border-r border-border dark:border-white/10 min-h-screen overflow-y-auto no-scrollbar"
         >
-          <div className="sticky top-0 bg-background/80 backdrop-blur-md z-40 border-b border-border dark:border-white/10 px-4 py-3 hidden sm:block">
+          <div className="sticky top-0 bg-background dark:bg-backgroundBlur/80 backdrop-blur-md z-40 border-b border-border dark:border-white/10 px-4 py-3 hidden sm:block">
             <h2 className="text-xl font-bold">Home</h2>
           </div>
 

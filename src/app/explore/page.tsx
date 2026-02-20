@@ -57,9 +57,9 @@ export default function ExplorePage() {
     );
 
   return (
-    <div className="bg-background dark:bg-[#0F0F0F] text-foreground min-h-screen">
+    <div className="bg-background text-foreground min-h-screen">
       {/* Mobile Top Navigation */}
-      <div className="sm:hidden sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 flex items-center justify-between">
+      <div className="sm:hidden sticky top-0 bg-background  backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 flex items-center justify-between">
         <Link href="/feed">
           <span className="text-primary font-black text-xl tracking-tighter">
             VOICE<span className="text-[#2DD0B3]">.</span>
@@ -174,7 +174,7 @@ export default function ExplorePage() {
 
         {/* Main Explore Content */}
         <main className="flex-1 max-w-2xl w-full border-r border-border dark:border-[#2F3336] min-h-screen overflow-y-auto no-scrollbar">
-          <div className="sticky top-0 sm:top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
+          <div className="sticky top-0 sm:top-0 bg-background dark:bg-backgroundBlur/80   backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
             {/* Desktop/Tablet Search */}
             <div className="hidden sm:flex items-center gap-4 px-4 pt-3 pb-1">
               <div className="flex-1 relative">

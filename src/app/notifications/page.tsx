@@ -79,7 +79,7 @@ export default function NotificationsPage() {
   return (
     <div className="bg-background dark:bg-[#0F0F0F] text-foreground min-h-screen">
       {/* Mobile Top Navigation */}
-      <div className="sm:hidden sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 flex justify-between items-center">
+      <div className="sm:hidden sticky top-0 bg-background   backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 flex justify-between items-center">
         <Link href="/feed">
           <span className="text-primary font-black text-xl tracking-tighter">
             VOICE<span className="text-[#2DD0B3]">.</span>
@@ -191,7 +191,7 @@ export default function NotificationsPage() {
 
         {/* Main Notifications Feed */}
         <main className="flex-1 max-w-2xl w-full border-r border-border dark:border-[#2F3336] min-h-screen overflow-y-auto no-scrollbar">
-          <div className="sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
+          <div className="sticky top-0 bg-background dark:bg-backgroundBlur/80  backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
             <div className="items-center justify-between px-4 py-3 hidden sm:flex">
               <h2 className="text-xl font-bold">Notifications</h2>
               <Settings className="w-5 h-5 text-muted-foreground cursor-pointer hover:text-foreground transition-colors" />

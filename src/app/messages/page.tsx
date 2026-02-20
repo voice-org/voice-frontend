@@ -296,7 +296,7 @@ export default function MessagesPage() {
               selectedChat ? "hidden md:block md:w-80 lg:w-[400px]" : "block",
             )}
           >
-            <div className="sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
+            <div className="sticky top-0 bg-background dark:bg-backgroundBlur/80   backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
               <div className="flex items-center justify-between px-4 py-3">
                 <h2 className="text-xl font-bold">Messages</h2>
                 <div className="flex items-center gap-3">
@@ -340,7 +340,7 @@ export default function MessagesPage() {
             {selectedChat ? (
               <>
                 {/* Chat Header */}
-                <header className="sticky top-0 bg-background/80 backdrop-blur-md border-b border-border dark:border-[#2F3336] p-4 flex items-center justify-between z-10">
+                <header className="sticky top-0 bg-background dark:bg-backgroundBlur/80 backdrop-blur-md border-b border-border dark:border-[#2F3336] p-4 flex items-center justify-between z-10">
                   <div className="flex items-center gap-4">
                     <button
                       onClick={() => setSelectedChat(null)}

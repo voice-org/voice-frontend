@@ -104,7 +104,7 @@ export default function PostDetailPage({
   return (
     <div className="bg-background dark:bg-[#0F0F0F] text-foreground min-h-screen">
       {/* Mobile Top Navigation */}
-      <div className="sm:hidden sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 flex items-center justify-between">
+      <div className="sm:hidden sticky top-0 bg-background/80   backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 flex items-center justify-between">
         <Link href="/feed">
           <span className="text-primary font-black text-xl tracking-tighter">
             VOICE<span className="text-[#2DD0B3]">.</span>
@@ -219,7 +219,7 @@ export default function PostDetailPage({
 
         {/* Main Content */}
         <main className="flex-1 max-w-2xl w-full border-r border-border dark:border-[#2F3336] min-h-screen overflow-y-auto no-scrollbar">
-          <div className="sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336] px-4 py-3 flex items-center gap-6">
+          <div className="sticky top-0 bg-background/80   backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336] px-4 py-3 flex items-center gap-6">
             <button
               onClick={() => router.back()}
               className="p-2 hover:bg-secondary rounded-full transition-colors"

@@ -96,7 +96,7 @@ export default function FollowersPage() {
 
         {/* Main Content */}
         <main className="flex-1 max-w-2xl w-full border-r border-border dark:border-[#2F3336] min-h-screen overflow-y-auto no-scrollbar">
-          <div className="sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
+          <div className="sticky top-0 bg-background/80   backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336]">
             <div className="px-4 py-1 flex items-center gap-6">
               <button
                 onClick={() => router.back()}

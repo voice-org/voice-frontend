@@ -154,9 +154,9 @@ export default function SettingsPage() {
     );
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="bg-background  text-foreground min-h-screen">
       {!isMobileDetail && (
-        <div className="sm:hidden sticky top-0 bg-background/80 backdrop-blur-md z-50 border-b border-border dark:border-white/10 px-4 py-3 flex items-center justify-between">
+        <div className="sm:hidden sticky top-0 bg-background dark:bg-backgroundBlur/80 backdrop-blur-md z-50 border-b border-border dark:border-white/10 px-4 py-3 flex items-center justify-between">
           <Link href="/feed">
             <span className="text-primary font-black text-xl tracking-tighter">
               VOICE<span className="text-[#2DD0B3]">.</span>
@@ -249,11 +249,11 @@ export default function SettingsPage() {
         <main className="flex-1 flex overflow-hidden">
           <div
             className={cn(
-              "flex-1 md:flex-none md:w-80 lg:w-[450px] border-r border-border dark:border-white/10 bg-background flex flex-col overflow-y-auto no-scrollbar",
+              "flex-1 md:flex-none md:w-80 lg:w-[450px] border-r border-border dark:border-white/10  bg-background flex flex-col overflow-y-auto no-scrollbar",
               isMobileDetail ? "hidden md:flex" : "flex",
             )}
           >
-            <div className="sticky top-0 bg-background/80 backdrop-blur-md z-10 px-4 py-4 border-b border-border dark:border-white/10">
+            <div className="sticky top-0 bg-background dark:bg-backgroundBlur/80  backdrop-blur-md z-10 px-4 py-4 border-b border-border dark:border-white/10">
               <h2 className="text-xl font-bold">Settings</h2>
             </div>
             <div className="py-2">
@@ -313,7 +313,7 @@ export default function SettingsPage() {
               isMobileDetail ? "flex" : "hidden md:flex",
             )}
           >
-            <div className="sticky top-0 bg-background/80 backdrop-blur-md z-20 px-4 py-4 border-b border-border dark:border-white/10 flex items-center gap-4">
+            <div className="sticky top-0 bg-background dark:bg-backgroundBlur/80 backdrop-blur-md z-20 px-4 py-4 border-b border-border dark:border-white/10 flex items-center gap-4">
               <button
                 onClick={() => {
                   if (navStack.length > 0) {

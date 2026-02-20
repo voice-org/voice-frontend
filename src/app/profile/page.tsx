@@ -166,8 +166,8 @@ export default function ProfilePage() {
   const isCreator = user?.handle === "@johndoe";
 
   return (
-    <div className="bg-background dark:bg-[#0F0F0F] text-foreground min-h-screen">
-      <div className="flex sm:hidden sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 items-center justify-between">
+    <div className="bg-background text-foreground min-h-screen">
+      <div className="flex sm:hidden sticky top-0 bg-background dark:bg-backgroundBlur/80  backdrop-blur-md z-50 border-b border-border dark:border-[#2F3336] px-4 py-3 items-center justify-between">
         <div className="flex items-center gap-6">
           <button onClick={() => router.back()} className="p-1">
             <ArrowLeft className="w-5 h-5" />
@@ -210,7 +210,11 @@ export default function ProfilePage() {
                   active
                   href="/profile"
                 />
-                <SidebarLink icon={Settings} label="Settings" href="#" />
+                <SidebarLink
+                  icon={Settings}
+                  label="Settings"
+                  href="/settings"
+                />
               </nav>
             </div>
           </SheetContent>
@@ -244,7 +248,7 @@ export default function ProfilePage() {
               />
               <SidebarLink icon={Mail} label="Messages" href="/messages" />
               <SidebarLink icon={User} label="Profile" active href="/profile" />
-              <SidebarLink icon={Settings} label="Settings" href="#" />
+              <SidebarLink icon={Settings} label="Settings" href="/settings" />
             </nav>
           </div>
           <div className="flex items-center justify-center xl:justify-between p-3 rounded-full hover:bg-secondary dark:hover:bg-[#16181C] transition-colors cursor-pointer w-fit xl:w-full mt-4 mx-auto xl:mx-0">
@@ -266,7 +270,7 @@ export default function ProfilePage() {
         </header>
 
         <main className="flex-1 max-w-2xl w-full border-r border-border dark:border-[#2F3336] min-h-screen overflow-y-auto no-scrollbar">
-          <div className="sticky top-0 bg-background/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336] px-4 py-1 flex items-center gap-6 hidden sm:flex">
+          <div className="sticky top-0 bg-background dark:bg-backgroundBlur/80  backdrop-blur-md z-40 border-b border-border dark:border-[#2F3336] px-4 py-1 flex items-center gap-6 hidden sm:flex">
             <button
               onClick={() => router.back()}
               className="p-2 hover:bg-secondary rounded-full transition-colors"
