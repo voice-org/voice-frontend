@@ -11,7 +11,6 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, currentUserHandle }: PostCardProps) {
-  // Check if it's the current user (mocked as @johndoe) or dynamic
   const isMe = !!(
     post.user.handle === "@johndoe" ||
     (currentUserHandle && post.user.handle === currentUserHandle)
@@ -22,7 +21,6 @@ export function PostCard({ post, currentUserHandle }: PostCardProps) {
 
   return (
     <div className="bg-white/80 dark:bg-black/40 backdrop-blur-md p-4 rounded-xl shadow-sm border border-white/20 dark:border-white/10 transition-shadow cursor-pointer hover:shadow-md relative group">
-      {/* Absolute overlay link for the post detail */}
       <Link
         href={`/post/${post.id}`}
         className="absolute inset-0 z-0"
