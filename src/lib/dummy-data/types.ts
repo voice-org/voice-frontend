@@ -14,22 +14,24 @@ export interface Post {
   id: string;
   user: UserData;
   content: string;
-  image?: string;
-  link?: {
-    url: string;
-    display: string;
-    title: string;
-    description?: string;
-  };
+  images?: string[];
   timestamp: string;
   stats: {
     comments: number;
     reposts: number;
     likes: number;
+    quotes?: number;
     views?: number | string;
     bookmarks?: number | string;
   };
   isPinned?: boolean;
+  quotePost?: Post;
+  poll?: {
+    options: { id: string; label: string; votes: number }[];
+    totalVotes: number;
+    expiresAt: string;
+    myVote?: string;
+  };
 }
 
 export interface TrendingTopic {

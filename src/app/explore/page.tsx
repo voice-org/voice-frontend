@@ -15,7 +15,13 @@ import {
   Menu,
   Bookmark,
 } from "lucide-react";
-import { trendingTopics, followSuggestions, appState } from "@/lib/dummy-data";
+import {
+  trendingTopics,
+  followSuggestions,
+  appState,
+  dummyPosts,
+  type Post,
+} from "@/lib/dummy-data";
 import { SidebarLink } from "@/components/shared/SidebarLink";
 import { VerifiedBadge } from "@/components/shared/VerifiedBadge";
 import { cn } from "@/lib/utils";
@@ -26,6 +32,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
+import { FeedItem } from "@/components/feed/FeedItem";
 
 export default function ExplorePage() {
   const router = useRouter();
@@ -35,6 +42,9 @@ export default function ExplorePage() {
     avatar: string;
   } | null>(null);
   const [activeTab, setActiveTab] = useState("for-you");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [searchTab, setSearchTab] = useState("top");
   const [isLoading, setIsLoading] = useState(!appState.hasInitialLoaded);
 
   useEffect(() => {
@@ -184,125 +194,220 @@ export default function ExplorePage() {
             {/* Desktop/Tablet Search */}
             <div className="hidden sm:flex items-center gap-4 px-4 pt-3 pb-1">
               <div className="flex-1 relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <input
-                  className="w-full bg-secondary dark:bg-[#16181C] border-none rounded-full py-3 pl-12 pr-4 text-sm outline-none focus:ring-1 focus:ring-primary"
+                  className="w-full bg-secondary dark:bg-[#16181C] border border-transparent rounded-full py-3 pl-12 pr-4 text-sm outline-none focus:ring-1 focus:ring-primary focus:bg-background transition-all"
                   placeholder="Search VOICE"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
                 />
               </div>
               <Settings className="w-5 h-5 text-muted-foreground cursor-pointer hover:text-foreground" />
             </div>
 
-            {/* Mobile Search - Inline below Logo */}
-            <div className="sm:hidden px-4 py-2">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-                <input
-                  className="w-full bg-secondary dark:bg-[#16181C] border-none rounded-full py-2 pl-10 pr-4 text-xs outline-none focus:ring-1 focus:ring-primary"
-                  placeholder="Search VOICE"
-                />
-              </div>
-            </div>
-
             {/* Tabs - Mobile Friendly Scroll */}
             <div className="flex w-full overflow-x-auto no-scrollbar snap-x snap-mandatory">
-              <ExploreTab
-                label="For you"
-                active={activeTab === "for-you"}
-                onClick={() => setActiveTab("for-you")}
-              />
-              <ExploreTab
-                label="Trending"
-                active={activeTab === "trending"}
-                onClick={() => setActiveTab("trending")}
-              />
-              <ExploreTab
-                label="News"
-                active={activeTab === "news"}
-                onClick={() => setActiveTab("news")}
-              />
-              <ExploreTab
-                label="Sports"
-                active={activeTab === "sports"}
-                onClick={() => setActiveTab("sports")}
-              />
-              <ExploreTab
-                label="Entertainment"
-                active={activeTab === "entertainment"}
-                onClick={() => setActiveTab("entertainment")}
-              />
+              {!searchQuery && (
+                <>
+                  <ExploreTab
+                    label="For you"
+                    active={activeTab === "for-you"}
+                    onClick={() => setActiveTab("for-you")}
+                  />
+                  <ExploreTab
+                    label="Trending"
+                    active={activeTab === "trending"}
+                    onClick={() => setActiveTab("trending")}
+                  />
+                  <ExploreTab
+                    label="News"
+                    active={activeTab === "news"}
+                    onClick={() => setActiveTab("news")}
+                  />
+                  <ExploreTab
+                    label="Sports"
+                    active={activeTab === "sports"}
+                    onClick={() => setActiveTab("sports")}
+                  />
+                  <ExploreTab
+                    label="Entertainment"
+                    active={activeTab === "entertainment"}
+                    onClick={() => setActiveTab("entertainment")}
+                  />
+                </>
+              )}
+              {searchQuery && (
+                <>
+                  <ExploreTab
+                    label="Top"
+                    active={searchTab === "top"}
+                    onClick={() => setSearchTab("top")}
+                  />
+                  <ExploreTab
+                    label="Latest"
+                    active={searchTab === "latest"}
+                    onClick={() => setSearchTab("latest")}
+                  />
+                  <ExploreTab
+                    label="People"
+                    active={searchTab === "people"}
+                    onClick={() => setSearchTab("people")}
+                  />
+                  <ExploreTab
+                    label="Media"
+                    active={searchTab === "media"}
+                    onClick={() => setSearchTab("media")}
+                  />
+                </>
+              )}
             </div>
           </div>
 
           <div className="pb-20">
-            {/* Hero Section */}
-            <div className="relative aspect-[16/9] w-full overflow-hidden cursor-pointer group">
-              <img
-                src="https://picsum.photos/seed/news_hero/800/450"
-                alt="Breaking News"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
-                <span className="text-white/80 text-sm font-medium mb-1">
-                  Politics · Live
-                </span>
-                <h2 className="text-white text-xl sm:text-2xl font-black leading-tight drop-shadow-md">
-                  Global Leaders Gather for the 2026 Innovation Summit in Dubai
-                </h2>
+            {searchQuery ? (
+              <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                {searchTab === "people" ? (
+                  <div className="divide-y divide-border dark:divide-white/10">
+                    {followSuggestions
+                      .filter(
+                        (p) =>
+                          p.name
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase()) ||
+                          p.handle
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase()),
+                      )
+                      .map((person) => (
+                        <div
+                          key={person.id}
+                          className="flex items-center justify-between px-4 py-4 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                        >
+                          <div className="flex items-center gap-3">
+                            <img
+                              alt="Avatar"
+                              className="w-12 h-12 rounded-full object-cover"
+                              src={person.avatar}
+                            />
+                            <div className="flex flex-col min-w-0">
+                              <span className="font-bold text-base hover:underline truncate">
+                                {person.name}
+                              </span>
+                              <span className="text-sm text-muted-foreground truncate">
+                                {person.handle}
+                              </span>
+                              {person.bio && (
+                                <p className="text-sm mt-1 line-clamp-1">
+                                  {person.bio}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <button className="bg-foreground text-background hover:opacity-90 text-sm font-bold px-4 py-1.5 rounded-full transition-colors">
+                            Follow
+                          </button>
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  <div>
+                    {dummyPosts
+                      .filter(
+                        (p) =>
+                          p.content
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase()) ||
+                          (searchTab === "media"
+                            ? p.images && p.images.length > 0
+                            : true),
+                      )
+                      .slice(0, 10)
+                      .map((post) => (
+                        <FeedItem
+                          key={post.id}
+                          post={post}
+                          currentUserHandle={user?.handle}
+                        />
+                      ))}
+                  </div>
+                )}
               </div>
-            </div>
-
-            {/* Trends List */}
-            <div className="border-b border-border dark:border-[#2F3336] py-3">
-              <h3 className="text-xl font-black px-4 py-2">Trends for you</h3>
-              {trendingTopics.map((topic) => (
-                <div
-                  key={topic.id}
-                  className="hover:bg-black/5 dark:hover:bg-white/5 px-4 py-3 cursor-pointer transition-colors relative group"
-                >
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>{topic.category}</span>
-                    <MoreHorizontal className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <div className="font-bold text-base mt-0.5">
-                    {topic.topic}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">
-                    {topic.postsCount}
+            ) : (
+              <>
+                {/* Hero Section */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden cursor-pointer group">
+                  <img
+                    src="https://picsum.photos/seed/news_hero/800/450"
+                    alt="Breaking News"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+                    <span className="text-white/80 text-sm font-medium mb-1">
+                      Politics · Live
+                    </span>
+                    <h2 className="text-white text-xl sm:text-2xl font-black leading-tight drop-shadow-md">
+                      Global Leaders Gather for the 2026 Innovation Summit in
+                      Dubai
+                    </h2>
                   </div>
                 </div>
-              ))}
-              <button className="w-full text-left px-4 py-4 text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-sm font-bold">
-                Show more
-              </button>
-            </div>
 
-            {/* Dummy "What's Happening" Section */}
-            <div className="p-4 space-y-4">
-              <h3 className="text-xl font-black">What's happening</h3>
-              {[1, 2, 3].map((item) => (
-                <div key={item} className="flex gap-4 cursor-pointer group">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
-                      <span>Tech News</span>
-                      <span>·</span>
-                      <span>2h ago</span>
+                {/* Trends List */}
+                <div className="border-b border-border dark:border-[#2F3336] py-3">
+                  <h3 className="text-xl font-black px-4 py-2">
+                    Trends for you
+                  </h3>
+                  {trendingTopics.map((topic) => (
+                    <div
+                      key={topic.id}
+                      className="hover:bg-black/5 dark:hover:bg-white/5 px-4 py-3 cursor-pointer transition-colors relative group"
+                    >
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>{topic.category}</span>
+                        <MoreHorizontal className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="font-bold text-base mt-0.5">
+                        {topic.topic}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {topic.postsCount}
+                      </div>
                     </div>
-                    <h4 className="font-bold text-sm line-clamp-2 group-hover:underline">
-                      New AI model breakthroughs show promise in early medical
-                      diagnosis and treatment planning.
-                    </h4>
-                  </div>
-                  <div className="w-16 h-16 rounded-xl overflow-hidden bg-muted flex-shrink-0">
-                    <img
-                      src={`https://picsum.photos/seed/tech_${item}/100/100`}
-                      alt="News"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  ))}
+                  <button className="w-full text-left px-4 py-4 text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-sm font-bold">
+                    Show more
+                  </button>
                 </div>
-              ))}
-            </div>
+
+                {/* Dummy "What's Happening" Section */}
+                <div className="p-4 space-y-4">
+                  <h3 className="text-xl font-black">What's happening</h3>
+                  {[1, 2, 3].map((item) => (
+                    <div key={item} className="flex gap-4 cursor-pointer group">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+                          <span>Tech News</span>
+                          <span>·</span>
+                          <span>2h ago</span>
+                        </div>
+                        <h4 className="font-bold text-sm line-clamp-2 group-hover:underline">
+                          New AI model breakthroughs show promise in early
+                          medical diagnosis and treatment planning.
+                        </h4>
+                      </div>
+                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-muted flex-shrink-0">
+                        <img
+                          src={`https://picsum.photos/seed/tech_${item}/100/100`}
+                          alt="News"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </main>
 

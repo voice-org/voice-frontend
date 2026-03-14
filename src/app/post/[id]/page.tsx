@@ -34,6 +34,10 @@ import {
 import { SidebarLink } from "@/components/shared/SidebarLink";
 import { IconButton } from "@/components/shared/IconButton";
 import { VerifiedBadge } from "@/components/shared/VerifiedBadge";
+import { LinkifiedText } from "@/components/feed/LinkifiedText";
+import { ImageGrid } from "@/components/feed/ImageGrid";
+import { PollView } from "@/components/feed/PollView";
+import { FeedItem } from "@/components/feed/FeedItem";
 import { cn } from "@/lib/utils";
 import {
   Sheet,
@@ -259,26 +263,31 @@ export default function PostDetailPage({
               </button>
             </div>
 
-            <div className="text-xl leading-relaxed break-words mt-4">
-              {post.content}
-            </div>
+            <LinkifiedText
+              className="text-xl leading-relaxed break-words mt-4 text-foreground"
+              text={post.content}
+            />
 
-            {post.image && (
-              <div className="rounded-2xl overflow-hidden border border-border dark:border-[#2F3336] mt-4">
-                <img
-                  alt="Post content"
-                  className="w-full h-auto object-cover max-h-[700px]"
-                  src={post.image}
-                />
+            {post.poll && <PollView poll={post.poll} />}
+
+            {post.images && post.images.length > 0 && (
+              <ImageGrid images={post.images} />
+            )}
+
+            {post.quotePost && (
+              <div className="mt-4 border border-border rounded-2xl overflow-hidden">
+                <FeedItem post={post.quotePost} isQuote />
               </div>
             )}
 
-            <div className="py-4 border-b border-border dark:border-[#2F3336] text-muted-foreground text-sm flex gap-1">
+            <div className="py-4 border-b border-border dark:border-[#2F3336] text-muted-foreground text-sm flex gap-1 items-center">
               <span>{post.timestamp}</span>
               <span>·</span>
               <span>Jan 28, 2024</span>
               <span>·</span>
-              <span className="font-bold text-foreground">1.2M</span>
+              <span className="font-bold text-foreground">
+                {post.stats.views || 0}
+              </span>
               <span>Views</span>
             </div>
 
@@ -290,7 +299,9 @@ export default function PostDetailPage({
                 <span className="text-muted-foreground">Reposts</span>
               </div>
               <div className="flex gap-1">
-                <span className="font-bold text-foreground">42</span>
+                <span className="font-bold text-foreground">
+                  {post.stats.quotes || 0}
+                </span>
                 <span className="text-muted-foreground">Quotes</span>
               </div>
               <div className="flex gap-1">
@@ -300,7 +311,9 @@ export default function PostDetailPage({
                 <span className="text-muted-foreground">Likes</span>
               </div>
               <div className="flex gap-1">
-                <span className="font-bold text-foreground">15</span>
+                <span className="font-bold text-foreground">
+                  {post.stats.bookmarks || 0}
+                </span>
                 <span className="text-muted-foreground">Bookmarks</span>
               </div>
             </div>
