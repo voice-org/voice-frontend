@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   UserCircle,
@@ -13,11 +13,11 @@ import {
   ChevronRight,
   Check,
 } from "lucide-react";
-import { appState } from "@/lib/dummy-data";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useTheme, type AccentColor } from "@/components/theme-provider";
+import { useUser } from "@/components/providers/UserProvider";
 
 // Modularized Sections
 import { AccountInfo } from "@/components/settings/sections/AccountInfo";
@@ -44,29 +44,16 @@ type SettingSection =
 export default function SettingsPage() {
   const router = useRouter();
   const { theme, toggleTheme, accentColor, setAccentColor } = useTheme();
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
+  const { user, setUser } = useUser();
   const [activeSection, setActiveSection] = useState<SettingSection>("account");
   const [navStack, setNavStack] = useState<string[]>([]);
   const [isMobileDetail, setIsMobileDetail] = useState(false);
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (!savedUser) {
-      router.push("/");
-    } else {
-      setUser(JSON.parse(savedUser));
-      appState.hasInitialLoaded = true;
-    }
-  }, [router]);
 
   const activeSubSection = navStack[navStack.length - 1] || null;
 
   const handleLogout = () => {
     localStorage.removeItem("voice_user");
+    setUser(null);
     router.push("/");
   };
 
@@ -124,8 +111,8 @@ export default function SettingsPage() {
           isMobileDetail ? "hidden md:flex" : "flex",
         )}
       >
-        <div className="sticky top-0 bg-background/80 backdrop-blur-md z-10 px-4 py-4 border-b border-border dark:border-white/10">
-          <h2 className="text-xl font-bold">Settings</h2>
+        <div className="sticky top-0 bg-background/80 backdrop-blur-md z-10 px-4 py-4 border-b border-border dark:border-white/10 text-xl font-bold">
+          Settings
         </div>
         <div className="py-2">
           <SectionItem
@@ -180,7 +167,7 @@ export default function SettingsPage() {
 
       <div
         className={cn(
-          "flex-1 bg-background flex flex-col overflow-y-auto no-scrollbar",
+          "flex-1 bg-background flex flex-col overflow-y-auto no-scrollbar transition-all duration-300",
           isMobileDetail ? "flex" : "hidden md:flex",
         )}
       >
@@ -401,12 +388,14 @@ export default function SettingsPage() {
 }
 
 function SectionItem({
+  id,
   icon: Icon,
   label,
   description,
   active,
   onClick,
 }: {
+  id: string;
   icon: any;
   label: string;
   description: string;
@@ -421,7 +410,7 @@ function SectionItem({
         active ? "bg-primary/5 border-r-4 border-primary" : "",
       )}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 text-balance">
         <Icon
           className={cn(
             "w-5 h-5",

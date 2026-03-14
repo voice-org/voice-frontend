@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -14,21 +13,11 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 import { SidebarLink } from "@/components/shared/SidebarLink";
+import { useUser } from "@/components/providers/UserProvider";
 
 export function MainSidebar() {
   const pathname = usePathname();
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
+  const { user } = useUser();
 
   return (
     <header className="w-20 xl:w-64 h-full flex-col justify-between p-2 xl:px-4 xl:py-4 sticky top-0 border-r border-border dark:border-white/10 overflow-y-auto hidden sm:flex z-50">
@@ -92,11 +81,14 @@ export function MainSidebar() {
           />
         </nav>
       </div>
-      <div className="flex items-center justify-center xl:justify-between p-3 rounded-full hover:bg-secondary dark:hover:bg-white/5 transition-colors cursor-pointer w-fit xl:w-full mt-4 mx-auto xl:mx-0">
-        <div className="flex items-center gap-3">
+      <Link
+        href="/profile"
+        className="flex items-center justify-center xl:justify-between p-3 rounded-full hover:bg-secondary dark:hover:bg-white/5 transition-colors cursor-pointer w-fit xl:w-full mt-4 mx-auto xl:mx-0"
+      >
+        <div className="flex items-center gap-3 overflow-hidden">
           <img
             alt="User"
-            className="w-10 h-10 rounded-full object-cover border border-border"
+            className="w-10 h-10 rounded-full object-cover border border-border flex-shrink-0"
             src={user?.avatar || "https://picsum.photos/seed/default/100/100"}
           />
           <div className="hidden xl:flex flex-col leading-tight overflow-hidden">
@@ -109,7 +101,7 @@ export function MainSidebar() {
           </div>
         </div>
         <MoreHorizontal className="hidden xl:block w-4 h-4 text-muted-foreground" />
-      </div>
+      </Link>
     </header>
   );
 }

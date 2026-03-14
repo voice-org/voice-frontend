@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import {
   Heart,
   Repeat,
@@ -17,27 +16,17 @@ import {
 } from "@/lib/dummy-data";
 import { ScallopedBadge } from "@/components/shared/ScallopedBadge";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/components/providers/UserProvider";
 
 export default function NotificationsPage() {
-  const router = useRouter();
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
+  const { user } = useUser();
   const [activeTab, setActiveTab] = useState<"all" | "verified" | "mentions">(
     "all",
   );
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (!savedUser) {
-      router.push("/");
-    } else {
-      setUser(JSON.parse(savedUser));
-      appState.hasInitialLoaded = true;
-    }
-  }, [router]);
+    appState.hasInitialLoaded = true;
+  }, []);
 
   const filteredNotifications = dummyNotifications.filter((n) => {
     if (activeTab === "mentions")

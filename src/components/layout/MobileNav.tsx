@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -21,21 +20,11 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
+import { useUser } from "@/components/providers/UserProvider";
 
 export function MobileNav() {
   const pathname = usePathname();
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
+  const { user } = useUser();
 
   return (
     <div className="sm:hidden sticky top-0 bg-background/80 backdrop-blur-md z-50 border-b border-border dark:border-white/10 px-4 py-3 flex items-center justify-between">
@@ -59,7 +48,7 @@ export function MobileNav() {
             Access your profile and navigation links
           </SheetDescription>
           <div className="flex flex-col h-full p-4">
-            <div className="mb-6 px-2 flex flex-col gap-3">
+            <Link href="/profile" className="mb-6 px-2 flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <img
                   alt="User"
@@ -68,17 +57,17 @@ export function MobileNav() {
                     user?.avatar || "https://picsum.photos/seed/default/100/100"
                   }
                 />
-                <div className="flex flex-col">
-                  <span className="font-bold text-sm">
+                <div className="flex flex-col overflow-hidden">
+                  <span className="font-bold text-sm truncate">
                     {user?.name || "User"}
                   </span>
-                  <span className="text-muted-foreground text-xs">
+                  <span className="text-muted-foreground text-xs truncate">
                     {user?.handle || "@user"}
                   </span>
                 </div>
               </div>
               <div className="h-px bg-border w-full mt-2"></div>
-            </div>
+            </Link>
             <nav className="space-y-1">
               <SidebarLink
                 icon={Home}

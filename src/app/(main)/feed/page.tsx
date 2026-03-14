@@ -20,17 +20,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // Shared Components
 import { IconButton } from "@/components/shared/IconButton";
 import { FeedItem } from "@/components/feed/FeedItem";
+import { useUser } from "@/components/providers/UserProvider";
 
 export default function FeedPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { user } = useUser();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
   const [postContent, setPostContent] = useState("");
 
   // Infinite Scroll State
@@ -43,14 +40,8 @@ export default function FeedPage() {
   const [scheduledDate, setScheduledDate] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (!savedUser) {
-      router.push("/");
-    } else {
-      setUser(JSON.parse(savedUser));
-      appState.hasInitialLoaded = true;
-    }
-  }, [router]);
+    appState.hasInitialLoaded = true;
+  }, []);
 
   const fetchMoreData = () => {
     if (posts.length >= dummyPosts.length) {
@@ -293,11 +284,7 @@ export default function FeedPage() {
       >
         <div className="pb-20">
           {posts.map((post) => (
-            <FeedItem
-              key={post.id}
-              post={post}
-              currentUserHandle={user?.handle}
-            />
+            <FeedItem key={post.id} post={post} />
           ))}
         </div>
       </InfiniteScroll>

@@ -1,27 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { dummyPosts, appState } from "@/lib/dummy-data";
 import { FeedItem } from "@/components/feed/FeedItem";
+import { useUser } from "@/components/providers/UserProvider";
 
 export default function BookmarksPage() {
-  const router = useRouter();
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
+  const { user } = useUser();
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (!savedUser) {
-      router.push("/");
-    } else {
-      setUser(JSON.parse(savedUser));
-      appState.hasInitialLoaded = true;
-    }
-  }, [router]);
+    appState.hasInitialLoaded = true;
+  }, []);
 
   return (
     <div className="h-full overflow-y-auto no-scrollbar">
@@ -38,13 +27,7 @@ export default function BookmarksPage() {
         {dummyPosts.filter((p) => p.user.handle === "@lunar_art").length > 0 ? (
           dummyPosts
             .filter((p) => p.user.handle === "@lunar_art")
-            .map((post) => (
-              <FeedItem
-                key={post.id}
-                post={post}
-                currentUserHandle={user?.handle}
-              />
-            ))
+            .map((post) => <FeedItem key={post.id} post={post} />)
         ) : (
           <div className="p-8 text-center mt-10">
             <h3 className="text-3xl font-black mb-2 tracking-tighter">

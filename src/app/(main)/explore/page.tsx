@@ -10,41 +10,29 @@ import {
   dummyPosts,
 } from "@/lib/dummy-data";
 import { FeedItem } from "@/components/feed/FeedItem";
+import { SearchBar } from "@/components/shared/SearchBar";
+import { useUser } from "@/components/providers/UserProvider";
 
 export default function ExplorePage() {
-  const router = useRouter();
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
+  const { user } = useUser();
   const [activeTab, setActiveTab] = useState("for-you");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTab, setSearchTab] = useState("top");
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (!savedUser) {
-      router.push("/");
-    } else {
-      setUser(JSON.parse(savedUser));
-      appState.hasInitialLoaded = true;
-    }
-  }, [router]);
+    appState.hasInitialLoaded = true;
+  }, []);
 
   return (
     <div className="h-full overflow-y-auto no-scrollbar">
       <div className="sticky top-0 bg-background/80 backdrop-blur-md z-40 px-4 py-3 border-b border-border dark:border-white/10 box-border">
         <div className="flex items-center gap-4 pt-1 mb-3">
-          <div className="flex-1 relative group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-            <input
-              className="w-full bg-secondary dark:bg-[#16181C] border border-transparent rounded-full py-2.5 pl-12 pr-4 text-sm outline-none focus:ring-1 focus:ring-primary focus:bg-background transition-all"
-              placeholder="Search VOICE"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+          <SearchBar
+            className="flex-1"
+            placeholder="Search VOICE"
+            initialValue={searchQuery}
+            onSearch={setSearchQuery}
+          />
           <Settings className="w-5 h-5 text-muted-foreground cursor-pointer hover:text-foreground" />
         </div>
 
@@ -159,11 +147,7 @@ export default function ExplorePage() {
                   )
                   .slice(0, 10)
                   .map((post) => (
-                    <FeedItem
-                      key={post.id}
-                      post={post}
-                      currentUserHandle={user?.handle}
-                    />
+                    <FeedItem key={post.id} post={post} />
                   ))}
               </div>
             )}

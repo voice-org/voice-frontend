@@ -22,6 +22,7 @@ import { ImageGrid } from "@/components/feed/ImageGrid";
 import { PollView } from "@/components/feed/PollView";
 import { FeedItem } from "@/components/feed/FeedItem";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/components/providers/UserProvider";
 
 export default function PostDetailPage({
   params,
@@ -30,25 +31,15 @@ export default function PostDetailPage({
 }) {
   const router = useRouter();
   const { id } = use(params);
+  const { user: currentUser } = useUser();
   const [post, setPost] = useState<Post | null>(null);
-  const [currentUser, setCurrentUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-  } | null>(null);
   const [replyText, setReplyText] = useState("");
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (!savedUser) {
-      router.push("/");
-    } else {
-      setCurrentUser(JSON.parse(savedUser));
-      const foundPost = dummyPosts.find((p) => p.id === id);
-      if (foundPost) setPost(foundPost);
-      appState.hasInitialLoaded = true;
-    }
-  }, [id, router]);
+    const foundPost = dummyPosts.find((p) => p.id === id);
+    if (foundPost) setPost(foundPost);
+    appState.hasInitialLoaded = true;
+  }, [id]);
 
   if (!post)
     return (

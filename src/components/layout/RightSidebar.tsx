@@ -1,20 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Search, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { trendingTopics, followSuggestions } from "@/lib/dummy-data";
+import { SearchBar } from "@/components/shared/SearchBar";
 
 export function RightSidebar() {
   return (
     <aside className="w-[350px] hidden lg:block h-screen sticky top-0 px-6 py-4 space-y-4 overflow-y-auto no-scrollbar">
-      <div className="relative group">
-        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground group-focus-within:text-primary w-4 h-4" />
-        <input
-          className="w-full bg-secondary dark:bg-white/5 border-none rounded-full py-3 pl-12 pr-4 focus:ring-1 focus:ring-primary text-sm placeholder-muted-foreground outline-none transition-all"
-          placeholder="Search VOICE"
-          type="text"
-        />
-      </div>
+      <SearchBar placeholder="Search VOICE" />
 
       <div className="bg-secondary dark:bg-white/5 rounded-2xl border border-border dark:border-white/10 pt-3">
         <h3 className="font-extrabold text-xl px-4 mb-3">Trending Truths</h3>

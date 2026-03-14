@@ -26,22 +26,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/components/providers/UserProvider";
 
 export default function ProfilePage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { user, updateUser }: any = useUser();
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
 
-  const [user, setUser] = useState<{
-    name: string;
-    handle: string;
-    avatar: string;
-    cover?: string;
-    bio?: string;
-    location?: string;
-    website?: string;
-  } | null>(null);
   const [activeTab, setActiveTab] = useState("posts");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -54,26 +47,19 @@ export default function ProfilePage() {
   const [editCover, setEditCover] = useState("");
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("voice_user");
-    if (!savedUser) {
-      router.push("/");
-    } else {
-      const parsedUser = JSON.parse(savedUser);
-      setUser(parsedUser);
-      setEditName(parsedUser.name || "");
+    if (user) {
+      setEditName(user.name || "");
       setEditBio(
-        parsedUser.bio ||
+        user.bio ||
           "Digital product designer, tech enthusiast, and professional VOICEr. Building the future of social connection. 🚀",
       );
-      setEditLocation(parsedUser.location || "San Francisco, CA");
-      setEditWebsite(parsedUser.website || "voice.app/me");
-      setEditAvatar(parsedUser.avatar || "");
-      setEditCover(
-        parsedUser.cover || "https://picsum.photos/seed/cover/800/260",
-      );
-      appState.hasInitialLoaded = true;
+      setEditLocation(user.location || "San Francisco, CA");
+      setEditWebsite(user.website || "voice.app/me");
+      setEditAvatar(user.avatar || "");
+      setEditCover(user.cover || "https://picsum.photos/seed/cover/800/260");
     }
-  }, [router]);
+    appState.hasInitialLoaded = true;
+  }, [user]);
 
   const handleImageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -101,8 +87,7 @@ export default function ProfilePage() {
       avatar: editAvatar,
       cover: editCover,
     };
-    localStorage.setItem("voice_user", JSON.stringify(updatedUser));
-    setUser(updatedUser);
+    updateUser(updatedUser);
     setIsEditModalOpen(false);
     toast({
       title: "Profile Updated",

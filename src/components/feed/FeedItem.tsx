@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Pin,
@@ -19,20 +20,33 @@ import { LinkifiedText } from "./LinkifiedText";
 import { ImageGrid } from "./ImageGrid";
 import { PollView } from "./PollView";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/components/providers/UserProvider";
 
 interface FeedItemProps {
   post: Post;
-  currentUserHandle?: string;
   isQuote?: boolean;
 }
 
-export function FeedItem({
-  post,
-  currentUserHandle,
-  isQuote = false,
-}: FeedItemProps) {
+export function FeedItem({ post, isQuote = false }: FeedItemProps) {
+  const { user: currentUser } = useUser();
+  const [showRepostMenu, setShowRepostMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showRepostMenu) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowRepostMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showRepostMenu]);
+
   const isMe =
-    currentUserHandle === post.user.handle || post.user.handle === "@johndoe";
+    currentUser?.handle === post.user.handle || post.user.handle === "@johndoe";
   const profileHref = isMe
     ? "/profile"
     : `/profile/${post.user.handle.replace("@", "")}`;
@@ -114,12 +128,27 @@ export function FeedItem({
                   count={post.stats.comments}
                   hoverColor="hover:text-primary"
                 />
-                <FeedAction
-                  icon={Repeat}
-                  count={post.stats.reposts}
-                  hoverColor="hover:text-green-500"
-                  subAction={{ icon: MessageSquareQuote, label: "Quote" }}
-                />
+                <div className="relative" ref={menuRef}>
+                  <FeedAction
+                    icon={Repeat}
+                    count={post.stats.reposts}
+                    hoverColor="hover:text-green-500"
+                    onClick={() => setShowRepostMenu(!showRepostMenu)}
+                    active={showRepostMenu}
+                  />
+                  {showRepostMenu && (
+                    <div className="absolute top-10 left-0 flex flex-col bg-background border border-border rounded-xl shadow-2xl z-50 py-2 w-40 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                      <button className="flex items-center gap-3 px-4 py-2.5 hover:bg-secondary text-sm font-bold text-foreground transition-colors">
+                        <Repeat className="w-4 h-4" />
+                        Repost
+                      </button>
+                      <button className="flex items-center gap-3 px-4 py-2.5 hover:bg-secondary text-sm font-bold text-foreground transition-colors">
+                        <MessageSquareQuote className="w-4 h-4" />
+                        Quote
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <FeedAction
                   icon={Heart}
                   count={post.stats.likes}
@@ -151,38 +180,38 @@ function FeedAction({
   icon: Icon,
   count,
   hoverColor,
-  subAction,
+  onClick,
+  active = false,
 }: {
   icon: any;
   count?: number | string;
   hoverColor: string;
-  subAction?: { icon: any; label: string };
+  onClick?: () => void;
+  active?: boolean;
 }) {
   return (
-    <div className="relative group/action">
-      <button
-        onClick={(e) => e.stopPropagation()}
-        className={`flex items-center gap-2 group ${hoverColor} transition-colors`}
-      >
-        <div
-          className={`p-2 rounded-full group-hover:bg-current/10 transition-colors`}
-        >
-          <Icon className="w-4 h-4" />
-        </div>
-        {count !== undefined && <span className="text-xs">{count}</span>}
-      </button>
-      {subAction && (
-        <div className="absolute top-10 left-0 hidden group-hover/action:flex flex-col bg-background border border-border rounded-xl shadow-xl z-50 py-2 w-32 overflow-hidden">
-          <button className="flex items-center gap-3 px-4 py-2 hover:bg-secondary text-sm font-bold text-foreground">
-            <Repeat className="w-4 h-4" />
-            Repost
-          </button>
-          <button className="flex items-center gap-3 px-4 py-2 hover:bg-secondary text-sm font-bold text-foreground">
-            <subAction.icon className="w-4 h-4" />
-            {subAction.label}
-          </button>
-        </div>
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        if (onClick) onClick();
+      }}
+      className={cn(
+        "flex items-center gap-1 group transition-colors",
+        active ? hoverColor.split(":")[1] : "text-muted-foreground",
+        hoverColor,
       )}
-    </div>
+    >
+      <div
+        className={cn(
+          "p-2 rounded-full transition-colors",
+          active ? "bg-current/10" : "group-hover:bg-current/10",
+        )}
+      >
+        <Icon className="w-4 h-4" />
+      </div>
+      {count !== undefined && (
+        <span className="text-xs font-medium">{count}</span>
+      )}
+    </button>
   );
 }
