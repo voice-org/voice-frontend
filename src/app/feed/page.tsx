@@ -23,6 +23,7 @@ import {
   Pin,
   X,
   Menu,
+  Bookmark,
   Settings,
   BadgeCheck,
   Loader2,
@@ -226,6 +227,11 @@ export default function FeedPage() {
                   href="/notifications"
                 />
                 <SidebarLink icon={Mail} label="Messages" href="/messages" />
+                <SidebarLink
+                  icon={Bookmark}
+                  label="Bookmarks"
+                  href="/bookmarks"
+                />
                 <SidebarLink icon={User} label="Profile" href="/profile" />
                 <SidebarLink
                   icon={Settings}
@@ -265,6 +271,11 @@ export default function FeedPage() {
                 href="/notifications"
               />
               <SidebarLink icon={Mail} label="Messages" href="/messages" />
+              <SidebarLink
+                icon={Bookmark}
+                label="Bookmarks"
+                href="/bookmarks"
+              />
               <SidebarLink icon={User} label="Profile" href="/profile" />
               <SidebarLink icon={Settings} label="Settings" href="/settings" />
             </nav>

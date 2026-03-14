@@ -9,6 +9,8 @@ import {
   Repeat,
   Heart,
   Share,
+  BarChart3,
+  Bookmark,
 } from "lucide-react";
 import { type Post } from "@/lib/dummy-data";
 import { VerifiedBadge } from "@/components/shared/VerifiedBadge";
@@ -100,7 +102,19 @@ export function FeedItem({ post, currentUserHandle }: FeedItemProps) {
                 count={post.stats.likes}
                 hoverColor="hover:text-pink-600"
               />
-              <FeedAction icon={Share} hoverColor="hover:text-primary" />
+              <FeedAction
+                icon={BarChart3}
+                count={post.stats.views || "0"}
+                hoverColor="hover:text-primary"
+              />
+              <div className="flex gap-1">
+                <FeedAction
+                  icon={Bookmark}
+                  count={post.stats.bookmarks}
+                  hoverColor="hover:text-primary"
+                />
+                <FeedAction icon={Share} hoverColor="hover:text-primary" />
+              </div>
             </div>
           </div>
         </div>

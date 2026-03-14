@@ -1,4 +1,3 @@
-
 export interface UserData {
   name: string;
   handle: string;
@@ -27,6 +26,8 @@ export interface Post {
     comments: number;
     reposts: number;
     likes: number;
+    views?: number | string;
+    bookmarks?: number | string;
   };
   isPinned?: boolean;
 }
@@ -49,7 +50,7 @@ export interface FollowSuggestion {
 
 export interface Notification {
   id: string;
-  type: 'like' | 'repost' | 'follow' | 'mention' | 'verify' | 'reply';
+  type: "like" | "repost" | "follow" | "mention" | "verify" | "reply";
   user: UserData;
   content?: string;
   timestamp: string;

@@ -13,6 +13,7 @@ import {
   Search,
   Settings,
   Menu,
+  Bookmark,
 } from "lucide-react";
 import { trendingTopics, followSuggestions, appState } from "@/lib/dummy-data";
 import { SidebarLink } from "@/components/shared/SidebarLink";
@@ -111,6 +112,11 @@ export default function ExplorePage() {
                   href="/notifications"
                 />
                 <SidebarLink icon={Mail} label="Messages" href="/messages" />
+                <SidebarLink
+                  icon={Bookmark}
+                  label="Bookmarks"
+                  href="/bookmarks"
+                />
                 <SidebarLink icon={User} label="Profile" href="/profile" />
                 <SidebarLink
                   icon={Settings}
